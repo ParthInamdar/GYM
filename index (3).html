@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FORGED — Personalized Workout Planner</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Sans:wght@300;400;500;600&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- ═══════════════════════════════
+     SCREEN 1: LANDING
+═══════════════════════════════ -->
+<div id="screen-landing" class="screen active">
+  <div class="landing-bg"></div>
+  <div class="landing-grid"></div>
+  <div class="landing-content">
+    <div class="landing-tag">✦ AI-POWERED WORKOUT PLANNER</div>
+    <h1 class="landing-title">
+      GET
+      <span class="accent">FORGED.</span>
+    </h1>
+    <p class="landing-desc">Stop guessing. Start training. Answer a few questions and get a personalized workout plan built around your body, goals, and schedule.</p>
+    <div class="landing-cta">
+      <button class="btn-primary" onclick="goTo('screen-personal')">Build My Plan →</button>
+      <button class="btn-secondary" onclick="goTo('screen-plan'); loadDemoPlan()">View Demo Plan</button>
+    </div>
+    <div class="landing-stats">
+      <div class="stat-item">
+        <div class="stat-num">50K+</div>
+        <div class="stat-label">Plans Created</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">12</div>
+        <div class="stat-label">Goal Types</div>
+      </div>
+      <div class="stat-item">
+        <div class="stat-num">200+</div>
+        <div class="stat-label">Exercises</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 2: PERSONAL INFO
+═══════════════════════════════ -->
+<div id="screen-personal" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+    <div class="nav-step">STEP 1 OF 4</div>
+    <button class="btn-ghost" onclick="goTo('screen-landing')">← Back</button>
+  </nav>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:25%"></div></div>
+  <div class="onboard-wrap">
+    <div class="step-header">
+      <div class="step-number">STEP 01 / 04</div>
+      <h2 class="step-title">ABOUT YOU</h2>
+      <p class="step-subtitle">Let's get to know you so we can tailor your plan perfectly.</p>
+    </div>
+    <div class="form-grid">
+      <div class="form-grid form-grid-2">
+        <div class="form-group">
+          <label class="form-label">First Name</label>
+          <input type="text" class="form-input" id="inp-name" placeholder="Alex" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Age</label>
+          <input type="number" class="form-input" id="inp-age" placeholder="28" min="14" max="90" />
+        </div>
+      </div>
+      <div class="form-grid form-grid-2">
+        <div class="form-group">
+          <label class="form-label">Weight (kg)</label>
+          <input type="number" class="form-input" id="inp-weight" placeholder="75" />
+        </div>
+        <div class="form-group">
+          <label class="form-label">Height (cm)</label>
+          <input type="number" class="form-input" id="inp-height" placeholder="175" />
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Biological Sex</label>
+        <select class="form-select" id="inp-sex">
+          <option value="">Select...</option>
+          <option>Male</option>
+          <option>Female</option>
+          <option>Prefer not to say</option>
+        </select>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Any injuries or limitations?</label>
+        <input type="text" class="form-input" id="inp-injuries" placeholder="e.g. Lower back pain, bad knee..." />
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn-ghost" onclick="goTo('screen-landing')">← Back</button>
+      <button class="btn-primary" onclick="validateAndNext('screen-goals')">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 3: GOALS
+═══════════════════════════════ -->
+<div id="screen-goals" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+    <div class="nav-step">STEP 2 OF 4</div>
+    <button class="btn-ghost" onclick="goTo('screen-personal')">← Back</button>
+  </nav>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:50%"></div></div>
+  <div class="onboard-wrap">
+    <div class="step-header">
+      <div class="step-number">STEP 02 / 04</div>
+      <h2 class="step-title">YOUR GOAL</h2>
+      <p class="step-subtitle">What are you training for? Pick one primary goal.</p>
+    </div>
+    <div class="goal-grid">
+      <div class="goal-card" onclick="selectGoal(this, 'Weight Loss')">
+        <div class="goal-icon">🔥</div>
+        <div class="goal-name">Weight Loss</div>
+        <div class="goal-desc">Burn fat, improve metabolism, lean out</div>
+        <div class="goal-check">✓</div>
+      </div>
+      <div class="goal-card" onclick="selectGoal(this, 'Muscle Gain')">
+        <div class="goal-icon">💪</div>
+        <div class="goal-name">Muscle Gain</div>
+        <div class="goal-desc">Build mass, increase strength, hypertrophy</div>
+        <div class="goal-check">✓</div>
+      </div>
+      <div class="goal-card" onclick="selectGoal(this, 'Endurance')">
+        <div class="goal-icon">🏃</div>
+        <div class="goal-name">Endurance</div>
+        <div class="goal-desc">Improve stamina, cardio, and aerobic capacity</div>
+        <div class="goal-check">✓</div>
+      </div>
+      <div class="goal-card" onclick="selectGoal(this, 'Flexibility')">
+        <div class="goal-icon">🧘</div>
+        <div class="goal-name">Flexibility</div>
+        <div class="goal-desc">Increase mobility, reduce stiffness, recover faster</div>
+        <div class="goal-check">✓</div>
+      </div>
+      <div class="goal-card" onclick="selectGoal(this, 'Athletic Performance')">
+        <div class="goal-icon">⚡</div>
+        <div class="goal-name">Performance</div>
+        <div class="goal-desc">Power, speed, agility for sports and competition</div>
+        <div class="goal-check">✓</div>
+      </div>
+      <div class="goal-card" onclick="selectGoal(this, 'General Fitness')">
+        <div class="goal-icon">🌟</div>
+        <div class="goal-name">General Fitness</div>
+        <div class="goal-desc">Stay active, feel good, balanced overall health</div>
+        <div class="goal-check">✓</div>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn-ghost" onclick="goTo('screen-personal')">← Back</button>
+      <button class="btn-primary" onclick="goToLevel()">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 4: FITNESS LEVEL + EQUIPMENT
+═══════════════════════════════ -->
+<div id="screen-level" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+    <div class="nav-step">STEP 3 OF 4</div>
+    <button class="btn-ghost" onclick="goTo('screen-goals')">← Back</button>
+  </nav>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:75%"></div></div>
+  <div class="onboard-wrap">
+    <div class="step-header">
+      <div class="step-number">STEP 03 / 04</div>
+      <h2 class="step-title">LEVEL & GEAR</h2>
+      <p class="step-subtitle">How experienced are you, and what equipment do you have?</p>
+    </div>
+    <div style="margin-bottom:36px">
+      <div class="form-label" style="margin-bottom:14px">Fitness Level</div>
+      <div class="level-grid">
+        <div class="level-card" onclick="selectLevel(this, 'Beginner')">
+          <div class="level-icon">🌱</div>
+          <div class="level-name">Beginner</div>
+          <div class="level-desc">0–6 months experience</div>
+        </div>
+        <div class="level-card" onclick="selectLevel(this, 'Intermediate')">
+          <div class="level-icon">🏋️</div>
+          <div class="level-name">Intermediate</div>
+          <div class="level-desc">6 months – 3 years</div>
+        </div>
+        <div class="level-card" onclick="selectLevel(this, 'Advanced')">
+          <div class="level-icon">🔱</div>
+          <div class="level-name">Advanced</div>
+          <div class="level-desc">3+ years consistent training</div>
+        </div>
+      </div>
+    </div>
+    <div>
+      <div class="form-label" style="margin-bottom:14px">Available Equipment (select all that apply)</div>
+      <div class="equipment-grid" id="equip-grid">
+        <div class="equip-chip" onclick="toggleEquip(this)">🏠 No Equipment</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🏋️ Barbell</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">⚖️ Dumbbells</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🔗 Resistance Bands</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🤸 Pull-up Bar</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🏃 Treadmill</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🚴 Bike / Spin Bike</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🏊 Swimming Pool</div>
+        <div class="equip-chip" onclick="toggleEquip(this)">🔩 Cables / Machines</div>
+        <div class="equip-chip selected" onclick="toggleEquip(this)">🏢 Full Gym Access</div>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn-ghost" onclick="goTo('screen-goals')">← Back</button>
+      <button class="btn-primary" onclick="goTo('screen-schedule')">Continue →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 5: SCHEDULE
+═══════════════════════════════ -->
+<div id="screen-schedule" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+    <div class="nav-step">STEP 4 OF 4</div>
+    <button class="btn-ghost" onclick="goTo('screen-level')">← Back</button>
+  </nav>
+  <div class="progress-bar-wrap"><div class="progress-bar-fill" style="width:100%"></div></div>
+  <div class="onboard-wrap">
+    <div class="step-header">
+      <div class="step-number">STEP 04 / 04</div>
+      <h2 class="step-title">YOUR SCHEDULE</h2>
+      <p class="step-subtitle">When can you train? We'll build around your life.</p>
+    </div>
+    <div style="margin-bottom:40px">
+      <div class="form-label" style="margin-bottom:14px">Training Days</div>
+      <div class="days-grid">
+        <div class="day-btn" onclick="toggleDay(this)"><div class="day-name">MON</div></div>
+        <div class="day-btn selected" onclick="toggleDay(this)"><div class="day-name">TUE</div></div>
+        <div class="day-btn" onclick="toggleDay(this)"><div class="day-name">WED</div></div>
+        <div class="day-btn selected" onclick="toggleDay(this)"><div class="day-name">THU</div></div>
+        <div class="day-btn" onclick="toggleDay(this)"><div class="day-name">FRI</div></div>
+        <div class="day-btn selected" onclick="toggleDay(this)"><div class="day-name">SAT</div></div>
+        <div class="day-btn" onclick="toggleDay(this)"><div class="day-name">SUN</div></div>
+      </div>
+    </div>
+    <div style="margin-bottom:40px">
+      <div class="form-label" style="margin-bottom:14px">Session Duration</div>
+      <div class="duration-options">
+        <div class="duration-btn" onclick="selectDuration(this, '30')">
+          <div class="duration-time">30</div><div class="duration-label">minutes</div>
+        </div>
+        <div class="duration-btn selected" onclick="selectDuration(this, '45')">
+          <div class="duration-time">45</div><div class="duration-label">minutes</div>
+        </div>
+        <div class="duration-btn" onclick="selectDuration(this, '60')">
+          <div class="duration-time">60</div><div class="duration-label">minutes</div>
+        </div>
+        <div class="duration-btn" onclick="selectDuration(this, '90')">
+          <div class="duration-time">90</div><div class="duration-label">minutes</div>
+        </div>
+      </div>
+    </div>
+    <div style="margin-bottom:40px">
+      <div class="form-label" style="margin-bottom:14px">Preferred Time of Day</div>
+      <div class="equipment-grid">
+        <div class="equip-chip selected" onclick="selectTimeOf(this)">🌅 Early Morning (5–8am)</div>
+        <div class="equip-chip" onclick="selectTimeOf(this)">☀️ Morning (8–11am)</div>
+        <div class="equip-chip" onclick="selectTimeOf(this)">🌤 Afternoon (12–4pm)</div>
+        <div class="equip-chip" onclick="selectTimeOf(this)">🌆 Evening (5–9pm)</div>
+      </div>
+    </div>
+    <div class="form-footer">
+      <button class="btn-ghost" onclick="goTo('screen-level')">← Back</button>
+      <button class="btn-primary" onclick="generatePlan()">Generate My Plan ✦</button>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 6: GENERATING
+═══════════════════════════════ -->
+<div id="screen-generating" class="screen">
+  <div class="gen-wrap">
+    <div class="gen-logo">FORGED.</div>
+    <div class="gen-spinner" id="gen-spinner"></div>
+    <h2 class="gen-title">BUILDING YOUR PLAN</h2>
+    <p class="gen-status" id="gen-status">Analyzing your profile...</p>
+    <div class="gen-steps">
+      <div class="gen-step active" id="gstep-1"><div class="gen-step-dot"></div>Analyzing fitness profile</div>
+      <div class="gen-step" id="gstep-2"><div class="gen-step-dot"></div>Selecting optimal exercises</div>
+      <div class="gen-step" id="gstep-3"><div class="gen-step-dot"></div>Structuring weekly schedule</div>
+      <div class="gen-step" id="gstep-4"><div class="gen-step-dot"></div>Calculating sets, reps & intensity</div>
+      <div class="gen-step" id="gstep-5"><div class="gen-step-dot"></div>Adding nutrition recommendations</div>
+      <div class="gen-step" id="gstep-6"><div class="gen-step-dot"></div>Finalizing your plan</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 7: PLAN OVERVIEW
+═══════════════════════════════ -->
+<div id="screen-plan" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+    <div class="nav-actions">
+      <button class="btn-secondary" onclick="goTo('screen-landing')">New Plan</button>
+    </div>
+  </nav>
+  <div class="plan-hero">
+    <div class="plan-hero-inner">
+      <div class="plan-badge">✦ YOUR PERSONALIZED PLAN</div>
+      <h1 class="plan-title" id="plan-title">MUSCLE GAIN PROGRAM</h1>
+      <div class="plan-meta">
+        <div class="plan-meta-item"><span class="dot">●</span><span id="plan-level">Intermediate</span></div>
+        <div class="plan-meta-item"><span class="dot">●</span><span id="plan-days">4 days / week</span></div>
+        <div class="plan-meta-item"><span class="dot">●</span><span id="plan-duration">45 min sessions</span></div>
+        <div class="plan-meta-item"><span class="dot">●</span><span id="plan-week">8-week program</span></div>
+      </div>
+    </div>
+  </div>
+  <div class="plan-body">
+    <div class="plan-summary-cards">
+      <div class="summary-card">
+        <div class="summary-card-label">Weekly Volume</div>
+        <div class="summary-card-value" id="sc-vol">18</div>
+        <div class="summary-card-sub">Total sets/week</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Est. Calories</div>
+        <div class="summary-card-value" id="sc-cal">2,400</div>
+        <div class="summary-card-sub">Per active day</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Exercises</div>
+        <div class="summary-card-value" id="sc-ex">24</div>
+        <div class="summary-card-sub">Unique movements</div>
+      </div>
+      <div class="summary-card">
+        <div class="summary-card-label">Difficulty</div>
+        <div class="summary-card-value" id="sc-diff">★★★</div>
+        <div class="summary-card-sub">Out of 5 stars</div>
+      </div>
+    </div>
+
+    <div class="section-title">WEEKLY SCHEDULE</div>
+    <div class="week-grid" id="week-grid">
+      <!-- Populated by JS -->
+    </div>
+    <div style="display:flex;gap:12px;flex-wrap:wrap">
+      <button class="view-details-btn" onclick="showBottomNav();goTo('screen-nutrition')">🥗 Nutrition Tips</button>
+      <button class="view-details-btn" onclick="showBottomNav();goTo('screen-progress')">📈 Progress Tracker</button>
+    </div>
+  </div>
+
+  <div class="bottom-nav" id="bottom-nav" style="display:none">
+    <button class="bnav-item active" onclick="switchTab(this,'screen-plan')"><span>📋</span><span>Plan</span></button>
+    <button class="bnav-item" onclick="switchTab(this,'screen-nutrition')"><span>🥗</span><span>Nutrition</span></button>
+    <button class="bnav-item" onclick="switchTab(this,'screen-progress')"><span>📈</span><span>Progress</span></button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 8: DAY DETAIL
+═══════════════════════════════ -->
+<div id="screen-day-detail" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+  </nav>
+  <div class="detail-hero">
+    <div class="detail-hero-bg"></div>
+    <div class="detail-hero-inner">
+      <button class="back-btn" onclick="goTo('screen-plan')">← Back to Plan</button>
+      <h1 class="detail-title" id="detail-day-title">TUESDAY</h1>
+      <div class="detail-chips" id="detail-chips"></div>
+    </div>
+  </div>
+  <div class="detail-body">
+    <div class="section-title">EXERCISES</div>
+    <table class="exercise-table">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Exercise</th>
+          <th>Sets × Reps</th>
+          <th>Rest</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody id="detail-table-body"></tbody>
+    </table>
+    <div class="complete-btn-wrap">
+      <button class="btn-primary" onclick="markComplete()">✓ Mark Workout Complete</button>
+    </div>
+  </div>
+  <div class="bottom-nav" id="bottom-nav-detail">
+    <button class="bnav-item active" onclick="switchTab(this,'screen-plan')"><span>📋</span><span>Plan</span></button>
+    <button class="bnav-item" onclick="switchTab(this,'screen-nutrition')"><span>🥗</span><span>Nutrition</span></button>
+    <button class="bnav-item" onclick="switchTab(this,'screen-progress')"><span>📈</span><span>Progress</span></button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 9: NUTRITION
+═══════════════════════════════ -->
+<div id="screen-nutrition" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+  </nav>
+  <div class="nutrition-wrap">
+    <div class="step-header">
+      <div class="step-number">NUTRITION GUIDE</div>
+      <h2 class="step-title">FUEL YOUR GAINS</h2>
+      <p class="step-subtitle">Optimized nutrition recommendations for your goal.</p>
+    </div>
+    <div class="nutrition-cards" id="nutrition-cards">
+      <div class="nutrition-card">
+        <div class="nutrition-icon">🥩</div>
+        <div class="nutrition-title">Protein Target</div>
+        <div class="nutrition-text">Aim for <strong style="color:var(--lime)">1.8–2.2g per kg</strong> of bodyweight daily to support muscle protein synthesis and recovery.</div>
+        <div class="macro-bar-wrap">
+          <div class="macro-row"><span>Protein</span><span style="color:var(--lime)">35%</span></div>
+          <div class="macro-bar"><div class="macro-fill" style="width:35%;background:#3b82f6"></div></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-icon">🌾</div>
+        <div class="nutrition-title">Carbohydrates</div>
+        <div class="nutrition-text">Prioritize complex carbs like oats, rice, and sweet potato. Time them around workouts for best performance.</div>
+        <div class="macro-bar-wrap">
+          <div class="macro-row"><span>Carbs</span><span style="color:var(--lime)">45%</span></div>
+          <div class="macro-bar"><div class="macro-fill" style="width:45%;background:var(--lime)"></div></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-icon">🥑</div>
+        <div class="nutrition-title">Healthy Fats</div>
+        <div class="nutrition-text">Omega-3s and healthy fats support hormone production and reduce inflammation. Include avocado, nuts, and olive oil.</div>
+        <div class="macro-bar-wrap">
+          <div class="macro-row"><span>Fats</span><span style="color:var(--lime)">20%</span></div>
+          <div class="macro-bar"><div class="macro-fill" style="width:20%;background:#f97316"></div></div>
+        </div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-icon">💧</div>
+        <div class="nutrition-title">Hydration</div>
+        <div class="nutrition-text">Drink <strong style="color:var(--lime)">3–4 liters</strong> of water daily. Add an extra 500ml for every 30 minutes of intense training.</div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-icon">⏰</div>
+        <div class="nutrition-title">Meal Timing</div>
+        <div class="nutrition-text">Eat a protein + carb meal 60–90 min pre-workout. Within 30 min post-workout, consume protein to kickstart recovery.</div>
+      </div>
+      <div class="nutrition-card">
+        <div class="nutrition-icon">💊</div>
+        <div class="nutrition-title">Supplements</div>
+        <div class="nutrition-text">Consider Creatine Monohydrate (5g/day), Whey Protein post-workout, and Vitamin D3 if limited sun exposure.</div>
+      </div>
+    </div>
+    <div class="section-title">SAMPLE MEAL PLAN</div>
+    <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;overflow:hidden;">
+      <div style="display:grid;grid-template-columns:100px 1fr 80px;padding:12px 20px;border-bottom:1px solid var(--border);font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--muted)">
+        <span>Time</span><span>Meal</span><span>Protein</span>
+      </div>
+      <div id="meal-plan-rows"></div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="bnav-item" onclick="switchTab(this,'screen-plan')"><span>📋</span><span>Plan</span></button>
+    <button class="bnav-item active" onclick="switchTab(this,'screen-nutrition')"><span>🥗</span><span>Nutrition</span></button>
+    <button class="bnav-item" onclick="switchTab(this,'screen-progress')"><span>📈</span><span>Progress</span></button>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════
+     SCREEN 10: PROGRESS
+═══════════════════════════════ -->
+<div id="screen-progress" class="screen">
+  <nav class="nav">
+    <div class="nav-logo">FORGED<span>.</span></div>
+  </nav>
+  <div class="progress-wrap">
+    <div class="step-header">
+      <div class="step-number">WEEK 1 OF 8</div>
+      <h2 class="step-title">YOUR PROGRESS</h2>
+      <p class="step-subtitle">Track your journey and stay consistent.</p>
+    </div>
+    <div class="progress-stats" id="progress-stats">
+      <div class="pstat-card">
+        <div class="pstat-icon">🔥</div>
+        <div class="pstat-val" id="ps-streak">3</div>
+        <div class="pstat-label">Day Streak</div>
+      </div>
+      <div class="pstat-card">
+        <div class="pstat-icon">✅</div>
+        <div class="pstat-val" id="ps-done">3</div>
+        <div class="pstat-label">Workouts Done</div>
+      </div>
+      <div class="pstat-card">
+        <div class="pstat-icon">⏱</div>
+        <div class="pstat-val">2h 15m</div>
+        <div class="pstat-label">This Week</div>
+      </div>
+      <div class="pstat-card">
+        <div class="pstat-icon">📅</div>
+        <div class="pstat-val">5</div>
+        <div class="pstat-label">Days Remaining</div>
+      </div>
+    </div>
+
+    <div class="section-title">THIS WEEK'S LOG</div>
+    <div class="log-list" id="log-list">
+      <!-- Populated by JS -->
+    </div>
+
+    <div style="margin-top:40px">
+      <div class="section-title">WEEKLY COMPLETION</div>
+      <div style="background:var(--card-bg);border:1px solid var(--border);border-radius:12px;padding:28px;">
+        <div style="display:flex;gap:8px;margin-bottom:16px" id="completion-bars"></div>
+        <div style="font-size:13px;color:var(--muted)">Week 1 — 3/4 workouts completed (75%)</div>
+      </div>
+    </div>
+  </div>
+  <div class="bottom-nav">
+    <button class="bnav-item" onclick="switchTab(this,'screen-plan')"><span>📋</span><span>Plan</span></button>
+    <button class="bnav-item" onclick="switchTab(this,'screen-nutrition')"><span>🥗</span><span>Nutrition</span></button>
+    <button class="bnav-item active" onclick="switchTab(this,'screen-progress')"><span>📈</span><span>Progress</span></button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
